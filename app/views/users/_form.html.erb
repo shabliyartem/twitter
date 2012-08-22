@@ -3,8 +3,8 @@
     <p>
       <label>My Avatar</label>
       <%= image_tag(@user.avatar_url) if @user.avatar? %>
-      <%= f.check_box :remove_avatar if @user.avatar? %>
       <br/>
+      <%= f.check_box :remove_avatar if @user.avatar? %>
       <%= f.label :remove_avatar if @user.avatar? %>
       <%= f.file_field :avatar %>
       <%= f.hidden_field :avatar_cache %>

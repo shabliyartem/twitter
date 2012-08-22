@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822070353) do
+ActiveRecord::Schema.define(:version => 20120822112403) do
 
   create_table "followers", :id => false, :force => true do |t|
     t.integer "user_id"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(:version => 20120822070353) do
     t.integer  "user_id"
     t.text     "text"
     t.integer  "tweet_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "img_attachment"
   end
 
   create_table "users", :force => true do |t|

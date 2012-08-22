@@ -8,6 +8,16 @@
       </div>
     </div>
 
+    <p>
+      <label>Image</label>
+      <%= image_tag(@tweet.img_attachment) if @tweet.img_attachment? %>
+      <br/>
+      <%= f.check_box :remove_img_attachment if @tweet.img_attachment? %>
+      <%= f.label :remove_img_attachment if @tweet.img_attachment? %>
+      <%= f.file_field :img_attachment %>
+      <%= f.hidden_field :img_attachment_cache %>
+    </p>
+
     <div class="modal-footer">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
   attr_accessor :login #username or email address
-  attr_accessible :login, :email, :password, :password_confirmation, :remember_me
-  attr_accessible :username, :name, :location, :bio, :avatar, :avatar_cache, :remove_avatar
+  attr_accessible :login, :email, :password, :password_confirmation, :remember_me,
+                  :username, :name, :location, :bio, :avatar, :avatar_cache, :remove_avatar
 
   mount_uploader :avatar, AvatarUploader
 
