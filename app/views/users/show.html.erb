@@ -12,4 +12,10 @@
   <dd><%= @user.username %></dd>
 </dl>
 
-<div class="form-actions"></div>
+<div class="form-actions">
+
+  <%= render :partial => "tweets/form" %>
+
+  <%= render :template => "tweets/index" %>
+
+</div>

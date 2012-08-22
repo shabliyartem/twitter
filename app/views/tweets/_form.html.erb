@@ -1,14 +1,14 @@
-<%= form_for [current_user, @tweet], :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for [current_user, @tweet], :html => {:class => 'form-horizontal'} do |f| %>
+    <% display_validation_errors %>
 
-  <div class="control-group">
-    <%= f.label :text, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :text, :class => 'text_area', :rows => 3 %>
+    <div class="control-group">
+      <%= f.label :text, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :text, :class => 'text_area', :rows => 3 %>
+      </div>
     </div>
-  </div>
 
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-  </div>
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
 <% end %>

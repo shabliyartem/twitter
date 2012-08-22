@@ -17,6 +17,9 @@ class UsersController < ApplicationController
     params[:id] ||= current_user.id
     @user = User.find(params[:id])
 
+    @tweet = @user.tweets.build
+    @tweets = @user.tweets.order("created_at DESC") #.page(params[:page])
+
     respond_to do |format|
       format.html # show.html.erb
     end
