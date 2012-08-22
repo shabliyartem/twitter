@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>Sign up</h1>
+</div>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <% display_validation_errors %>
+
+    <div class="control-group">
+      <%= f.label :username %>
+      <div class="controls">
+        <%= f.text_field :username %></div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :email %>
+      <div class="controls">
+      <%= f.email_field :email %></div>
+    </div>
+
+    <div class="control-group"><%= f.label :password %>
+      <div class="controls">
+      <%= f.password_field :password %></div>
+    </div>
+
+    <div class="control-group"><%= f.label :password_confirmation %>
+      <div class="controls">
+      <%= f.password_field :password_confirmation %></div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Sign up", :class => 'btn btn-primary' %>
+    </div>
+<% end %>

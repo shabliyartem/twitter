@@ -1,0 +1,37 @@
+<%= form_for @user, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+    <% display_validation_errors %>
+    <p>
+      <label>My Avatar</label>
+      <%= image_tag(@user.avatar_url) if @user.avatar? %>
+      <%= f.check_box :remove_avatar if @user.avatar? %>
+      <br/>
+      <%= f.label :remove_avatar if @user.avatar? %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+    </p>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :location, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :location, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :bio, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :bio, :class => 'text_field', :rows => 3 %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  user_path(current_user), :class => 'btn' %>
+    </div>
+<% end %>
