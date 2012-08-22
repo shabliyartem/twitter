@@ -1,1 +1,1 @@
-$('#follow-link').html('<%= j follow_link(@user) %>');
+$('#follow-link-<%= j @user.id.to_s %>').html('<%= j follow_link(@user) %>');

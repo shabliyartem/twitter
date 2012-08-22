@@ -2,4 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  errors:
+    user:
+      cant_follow_myself: Can't follow for yourself
+  activerecord:
+      attributes:
+        user:
+          email: E-mail
+          login: Username or e-mail
+        tweet:
+          text: Text of the message

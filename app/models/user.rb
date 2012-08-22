@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   #checks that user not subscribe on himself
   def check_not_follow_myself(follower)
-    raise ActiveRecord::ActiveRecordError, 'I18n::t("errors.user.cant_follow_myself")' if self == follower
+    raise ActiveRecord::ActiveRecordError, I18n::t("errors.user.cant_follow_myself") if self == follower
   end
 
   #Overwrites Devise’s method to allow users to sign in using their username or email address
