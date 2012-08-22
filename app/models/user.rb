@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
                           :uniq => true, :before_add => :check_not_follow_myself
   has_many :tweets, :inverse_of => :user, :dependent => :destroy
 
+  def following_for
+    User.joins(:followers).where("followers.follower_id = ?", self)
+  end
+
   def guest!
     @is_guest = true
     self
