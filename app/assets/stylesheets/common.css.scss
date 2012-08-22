@@ -1,0 +1,18 @@
+.tweet-on-wall{
+  margin: 15px 5px;
+  img{
+    &.thumb{
+      max-width: 100px;
+      max-height: 70px;
+      float: left;
+      margin: 3px;
+    }
+  }
+  .tweet-controls{
+    float: right;
+  }
+  .tweet-content{
+    display: block;
+    min-height: 70px;
+  }
+}

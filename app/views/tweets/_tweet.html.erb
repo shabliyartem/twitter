@@ -1,17 +1,21 @@
-<tr class="tweet-on-wall">
-  <td>
-    <strong><%= tweet.user.username %></strong> <br/>
-    <%= tweet.text %>           <br/>
-    <%= tweet.tweet_id %>            <br/>
-    <%=l tweet.created_at %>              <br/>
-    <%= image_tag(tweet.img_attachment_url) if tweet.img_attachment? %>
+<div class="tweet-on-wall">
+  <%= image_tag tweet.user.avatar_url, :class => "thumb" %>
+  <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
 
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_user_tweet_path(tweet.user, tweet), :class => 'btn btn-mini' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                user_tweet_path(tweet.user, tweet),
-                :method => :delete,
-                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                :class => 'btn btn-mini btn-danger' %>
-  </td>
-</tr>
+  <div class="tweet-controls">
+    <span><%= l tweet.created_at %></span>
+    <%= link_to "Edit", edit_user_tweet_path(tweet.user, tweet), :class => 'btn btn-mini' %>
+    <%= link_to "Delete", user_tweet_path(tweet.user, tweet), :method => :delete,
+                :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+  </div>
+
+  <div class="tweet-content">
+    <%= tweet.text %><br/>
+    <% if tweet.img_attachment? %>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#attachment-<%= tweet.id %>">View all</button>
+        <div id="attachment-<%= tweet.id %>" class="collapse">
+            <%= image_tag(tweet.img_attachment_url) %>
+        </div>
+    <% end %>
+  </div>
+</div>
