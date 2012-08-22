@@ -33,6 +33,10 @@ class TweetsController < ApplicationController
   # GET /tweets/1/edit
   def edit
     @tweet = Tweet.find(params[:id])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js
+    end
   end
 
   # POST /tweets
