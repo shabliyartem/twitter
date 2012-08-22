@@ -15,7 +15,7 @@
 /tmp
 
 /.idea
-
+/public/uploads
 /private/uploads
 /nbproject
 /.sass-cache
