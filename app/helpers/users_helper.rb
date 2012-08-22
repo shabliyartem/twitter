@@ -5,9 +5,9 @@ module UsersHelper
     if current_user == user
       nil
     elsif user.followers.include? current_user
-      link_to "Stop following", unfollow_user_path(user), :method => :delete, :remote => true
+      link_to "Stop following", unfollow_user_path(user), :method => :delete, :remote => true, :class => 'btn btn-primary'
     else
-      link_to "Follow", follow_user_path(user), :method => :post, :remote => true
+      link_to "Follow", follow_user_path(user), :method => :post, :remote => true, :class => 'btn btn-primary'
     end
   end
 

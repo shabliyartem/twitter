@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     params[:id] ||= current_user.id
     @user = User.find(params[:id])
 
-    @tweets = @user.following_for.push(@user).inject([]){|res, u| res.concat u.tweets}.sort!{ |a,b| b.created_at <=> a.created_at }  #.page(params[:page])
+    @tweets = Tweet.where(:user_id => @user.following_for.pluck(:id).push(@user.id)).order("created_at DESC").page(params[:page])
     @tweet = current_user.tweets.build if user_signed_in?
 
     respond_to do |format|

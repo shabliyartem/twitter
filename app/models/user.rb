@@ -14,12 +14,13 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :followers, :class_name => "User", :join_table => "followers", :association_foreign_key => "follower_id",
                           :uniq => true, :before_add => :check_not_follow_myself
+  #returns collection of users, for which user subscribed for
+  has_and_belongs_to_many :following_for, :class_name => "User", :join_table => "followers", :foreign_key => "follower_id",
+                          :uniq => true, :before_add => :check_not_follow_myself
+
   has_many :tweets, :inverse_of => :user, :dependent => :destroy
 
-  def following_for
-    User.joins(:followers).where("followers.follower_id = ?", self)
-  end
-
+  #sets guest role for user (used in ability model)
   def guest!
     @is_guest = true
     self
