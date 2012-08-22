@@ -26,6 +26,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
     end
   end
 
@@ -41,7 +42,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to [@tweet.user, @tweet], notice: 'Tweet was successfully created.' }
+        format.html { redirect_to user_path(@tweet.user), notice: 'Tweet was successfully created.' }
         format.js
       else
         format.html { render action: "new" }
@@ -55,7 +56,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.update_attributes(params[:tweet])
-        format.html { redirect_to [@tweet.user, @tweet], notice: 'Tweet was successfully updated.' }
+        format.html { redirect_to user_path(@tweet.user), notice: 'Tweet was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
@@ -69,7 +70,7 @@ class TweetsController < ApplicationController
     @tweet.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_tweets_url(user) }
+      format.html { redirect_to user_path(user) }
     end
   end
 end

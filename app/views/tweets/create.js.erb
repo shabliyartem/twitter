@@ -1,2 +1,5 @@
-$("<%= j render :template => 'tweets/show' %> ").insertAfter("#new-tweet");
-$('#new-tweet').remove();
+$(".tweet-on-wall").first().before("<%= j render :template => 'tweets/show' %> ");
+$('#new-tweet-modal').modal('hide');
+$('#new_tweet #tweet_text').val('');
+$('#new_tweet #img_attachment').val('');
+$('#new_tweet #img_attachment_cache').val('');

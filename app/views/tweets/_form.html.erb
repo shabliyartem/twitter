@@ -1,4 +1,4 @@
-<%= form_for [current_user, @tweet], remote: true, html: {:class => 'form-horizontal'} do |f| %>
+<%= form_for [current_user, @tweet || current_user.tweets.build], remote: true, html: {:class => 'form-horizontal'} do |f| %>
     <% display_validation_errors %>
 
     <div class="control-group">
@@ -8,7 +8,8 @@
       </div>
     </div>
 
-    <div class="form-actions">
+    <div class="modal-footer">
       <%= f.submit nil, :class => 'btn btn-primary' %>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
 <% end %>
