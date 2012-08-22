@@ -30,12 +30,14 @@ class UsersController < ApplicationController
   # POST /users/1/follow
   def follow
     @user = User.find(params[:id])
+    authorize! :follow, @user
     @user.followers << current_user
   end
 
   # DELETE /users/1/unfollow
   def unfollow
     @user = User.find(params[:id])
+    authorize! :unfollow, @user
     @user.followers.delete current_user
     respond_to do |format|
       format.js { render action: "follow" }

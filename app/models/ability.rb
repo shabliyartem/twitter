@@ -10,7 +10,9 @@ class Ability
     else
       can :read, :all
       can :manage, User, :id => user.id
-      #can :manage, Tweet, :user_id => user.id
+      can :follow, User
+      can :unfollow, User
+      can :manage, Tweet, :user_id => user.id
     end
 
     #
