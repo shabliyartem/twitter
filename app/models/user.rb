@@ -16,6 +16,14 @@ class User < ActiveRecord::Base
                           :uniq => true, :before_add => :check_not_follow_myself
   has_many :tweets, :inverse_of => :user, :dependent => :destroy
 
+  def guest!
+    @is_guest = true
+    self
+  end
+  def guest?
+    @is_guest
+  end
+
   private
 
   #checks that user not subscribe on himself

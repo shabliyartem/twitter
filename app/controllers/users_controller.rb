@@ -14,11 +14,14 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+    #if brows to the main page while not signed in, show login page
+    authenticate_user! if !user_signed_in? && params[:id].nil?
+
     params[:id] ||= current_user.id
     @user = User.find(params[:id])
 
-    @tweet = @user.tweets.build
     @tweets = @user.tweets.order("created_at DESC") #.page(params[:page])
+    @tweet = current_user.tweets.build if user_signed_in?
 
     respond_to do |format|
       format.html # show.html.erb
