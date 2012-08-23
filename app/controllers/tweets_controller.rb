@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :only => [:index, :show, :edit]
+  respond_to :html, :only => [:index, :show, :new, :edit]
   respond_to :js, :only => [:new, :edit]
 
   def index
