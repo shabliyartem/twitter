@@ -1,16 +1,8 @@
 class TweetsController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :only => [:index, :show, :new, :edit]
+  respond_to :html, :only => [:new, :edit]
   respond_to :js, :only => [:new, :edit]
-
-  def index
-    @tweets = Tweet.all
-  end
-
-  def show
-    @tweet = Tweet.find(params[:id])
-  end
 
   def new
     @tweet = current_user.tweets.build

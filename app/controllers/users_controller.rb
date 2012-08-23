@@ -14,9 +14,11 @@ class UsersController < ApplicationController
     #if brows to the main page while not signed in, show login page
     authenticate_user! if !user_signed_in? && params[:id].nil?
     params[:id] ||= current_user.id
-
     @user = User.find(params[:id])
-    @tweets = Tweet.where(:user_id => @user.following_for.pluck(:id).push(@user.id)).order("created_at DESC").page(params[:page])
+
+    users_whose_tweets_show = [@user.id]
+    users_whose_tweets_show << @user.following_for.pluck(:id) if @user == current_user
+    @tweets = Tweet.where(:user_id => users_whose_tweets_show).order("created_at DESC").page(params[:page])
   end
 
   # GET /users/1/edit
