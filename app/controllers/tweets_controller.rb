@@ -1,79 +1,60 @@
 class TweetsController < ApplicationController
 
   load_and_authorize_resource
+  respond_to :html, :only => [:index, :show, :edit]
+  respond_to :js, :only => [:new, :edit]
 
-  # GET /tweets
   def index
     @tweets = Tweet.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
   end
 
-  # GET /tweets/1
   def show
     @tweet = Tweet.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
 
-  # GET /tweets/new
   def new
-    @tweet = Tweet.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-    end
+    @tweet = current_user.tweets.build
   end
 
-  # GET /tweets/1/edit
   def edit
     @tweet = Tweet.find(params[:id])
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-    end
   end
 
-  # POST /tweets
   def create
     @tweet = Tweet.new(params[:tweet])
     @tweet.user = current_user
 
-    respond_to do |format|
+    respond_with(@tweet) do |format|
       if @tweet.save
         format.html { redirect_to user_path(@tweet.user), notice: 'Tweet was successfully created.' }
         format.js
       else
         format.html { render action: "new" }
+        format.js { render action: "new" }
       end
     end
   end
 
-  # PUT /tweets/1
   def update
     @tweet = Tweet.find(params[:id])
 
-    respond_to do |format|
+    respond_with(@tweet) do |format|
       if @tweet.update_attributes(params[:tweet])
         format.html { redirect_to user_path(@tweet.user), notice: 'Tweet was successfully updated.' }
+        format.js
       else
         format.html { render action: "edit" }
+        format.js { render action: "edit" }
       end
     end
   end
 
-  # DELETE /tweets/1
   def destroy
     @tweet = Tweet.find(params[:id])
     user = @tweet.user
     @tweet.destroy
 
-    respond_to do |format|
+    respond_with(@tweet) do |format|
       format.html { redirect_to user_path(user) }
     end
   end

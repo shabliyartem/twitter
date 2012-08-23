@@ -1,0 +1,3 @@
+$(".tweet-on-wall.<%= j @tweet.id.to_s %>").html("<%= j render :template => 'tweets/show' %> ");
+$('#new-tweet-modal').modal('hide');
+alert("Tweet was updated");

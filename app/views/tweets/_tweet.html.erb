@@ -1,12 +1,12 @@
-<div class="tweet-on-wall">
+<div class="tweet-on-wall <%= tweet.id %>">
   <%= image_tag tweet.user.avatar_url, :class => "thumb" %>
   <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
 
   <div class="tweet-controls">
     <span><%= l tweet.created_at, :format => :long %></span>
-    <%= link_to "Edit", edit_user_tweet_path(tweet.user, tweet), :class => 'btn btn-mini', :remote => true %>
-    <%= link_to "Delete", user_tweet_path(tweet.user, tweet), :method => :delete,
-                :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+    <%= link_to("Edit", edit_user_tweet_path(tweet.user, tweet), :class => 'btn btn-mini', :remote => true) if can? :edit, tweet %>
+    <%= link_to("Delete", user_tweet_path(tweet.user, tweet), :method => :delete,
+                :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger') if can? :destroy, tweet %>
   </div>
 
   <div class="tweet-content">

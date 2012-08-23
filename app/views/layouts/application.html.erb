@@ -66,9 +66,17 @@
             <%= yield :avatar %>
             <ul class="nav nav-list">
               <% if user_signed_in? %>
-                  <a class="btn" data-toggle="modal" data-target="#new-tweet-modal">New tweet</a>
-                  <%= render :template => "tweets/new" %>
-              <% end %>
+                  <%= link_to "New tweet", new_user_tweet_path(current_user), :remote => true, :class => "btn" %>
+                  <div class="modal" id="new-tweet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="myModalLabel">What's happening?</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div id="new_tweet"></div>
+                    </div>
+                  </div>
+            <% end %>
               <li><%= link_to "Edit personal info", edit_user_path(current_user) if user_signed_in? %></li>
               <li><%= link_to "Edit profile", edit_user_registration_path(current_user) if user_signed_in? %></li>
               <li><%= link_to "Log out", destroy_user_session_path, :method => :delete if user_signed_in? %></li>

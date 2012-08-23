@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :username, :uniqueness => true
-  validates :username, :presence => true
+  validates :username, :uniqueness => true, :presence => true
   validates :username, :name, :location, :length => { :maximum => 30 }
   validates :bio, :length => { :maximum => 160 }
 
@@ -25,6 +24,7 @@ class User < ActiveRecord::Base
     @is_guest = true
     self
   end
+
   def guest?
     @is_guest
   end

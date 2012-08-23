@@ -7,6 +7,7 @@ class Ability
       can :manage, :all
     elsif user.guest?
       can :read, :all
+    # not guest and not admin = authenticated user
     else
       can :read, :all
       can :manage, User, :id => user.id

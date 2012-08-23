@@ -1,15 +1,12 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  #before_filter :authenticate_user!, :if => params[:id].nil?
+  respond_to :html, :only => [:index, :show, :edit]
+  respond_to :js, :only => [:follow, :unfollow]
 
   # GET /users
   def index
     @users = User.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
   end
 
   # GET /users/1
@@ -20,10 +17,6 @@ class UsersController < ApplicationController
 
     @user = User.find(params[:id])
     @tweets = Tweet.where(:user_id => @user.following_for.pluck(:id).push(@user.id)).order("created_at DESC").page(params[:page])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
 
   # GET /users/1/edit
@@ -43,7 +36,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize! :unfollow, @user
     @user.followers.delete current_user
-    respond_to do |format|
+    respond_with(@user) do |format|
       format.js { render action: "follow" }
     end
   end
@@ -52,7 +45,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    respond_to do |format|
+    respond_with(@user) do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
       else

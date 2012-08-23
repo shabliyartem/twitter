@@ -19,8 +19,10 @@
 </dl>
 
 <div class="form-actions">
-  <div id="wall">
+  <div class="table table-striped">
     <%= paginate @tweets %>
-    <%= render :template => "tweets/index" %>
+    <div id="wall-<%= @user.id %>">
+      <%= render :template => "tweets/index" %>
+    </div>
   </div>
 </div>
