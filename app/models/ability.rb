@@ -13,6 +13,7 @@ class Ability
       can :manage, User, :id => user.id
       can :follow, User
       can :unfollow, User
+      can :create, Tweet
       can :manage, Tweet, :user_id => user.id
     end
   end

@@ -4,7 +4,10 @@
 
   <div class="tweet-controls">
     <span><%= l tweet.created_at, :format => :long %></span>
-    <%= link_to("Edit", edit_user_tweet_path(tweet.user, tweet), :class => 'btn btn-mini', :remote => true) if can? :edit, tweet %>
+    <%= link_to("Reply", new_user_tweet_path(tweet.user, :reply_to_user_id => tweet.user.id),
+                :class => 'btn btn-mini', :remote => true) if can? :create, Tweet.new %>
+    <%= link_to("Edit", edit_user_tweet_path(tweet.user, tweet),
+                :class => 'btn btn-mini', :remote => true) if can? :edit, tweet %>
     <%= link_to("Delete", user_tweet_path(tweet.user, tweet), :method => :delete,
                 :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger') if can? :destroy, tweet %>
   </div>

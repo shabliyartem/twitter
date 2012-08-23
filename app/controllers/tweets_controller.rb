@@ -6,6 +6,7 @@ class TweetsController < ApplicationController
 
   def new
     @tweet = current_user.tweets.build
+    @tweet.text = "@#{User.find(params[:reply_to_user_id]).username}, " unless params[:reply_to_user_id].blank?
   end
 
   def edit
