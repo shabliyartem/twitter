@@ -18,6 +18,15 @@
   <dd><%= @user.location %></dd>
 </dl>
 
+<% if @user.repos_url.present? %>
+    <b>Your Public Github Repositories:</b>
+    <%= image_tag "loading.gif", :id => "load-repos-indicator" %>
+    <table id="repos_list"></table>
+    <%= hidden_field_tag :user_repos_url, @user.repos_url %>
+    <%= hidden_field_tag :clone_repo_url, clone_repo_path %>
+    <%= content_for :head, javascript_include_tag('pipeline/user/show') %>
+<% end %>
+
 <div class="form-actions">
   <div class="table table-striped">
     <%= paginate @tweets %>

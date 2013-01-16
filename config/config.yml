@@ -1,0 +1,25 @@
+development:
+  default_host: dev.nyam.ru
+  asset_host: dev.nyam.ru
+  paperclip_url: http://dev.nyam.ru
+  hosts:
+    - 127.0.0.1:3000
+    - localhost:3000
+    - dev.nyam.ru
+    - 192.168.11.160:3000
+
+test:
+  default_host: 127.0.0.1:3000
+  hosts:
+    - 127.0.0.1:3000
+    - localhost:3000
+
+production:
+  default_host: dev.nyam.ru
+  asset_host: dev.nyam.ru
+  paperclip_url: http://dev.nyam.ru
+  hosts:
+    - dev.nyam.ru
+    - 127.0.0.1:3000
+    - localhost:3000
+

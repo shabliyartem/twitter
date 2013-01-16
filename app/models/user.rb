@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :login #username or email address
   attr_accessible :login, :email, :password, :password_confirmation, :remember_me,
-                  :username, :name, :location, :bio, :avatar, :avatar_cache, :remove_avatar
+                  :username, :name, :location, :bio, :avatar, :avatar_cache, :remove_avatar,
+                  :repos_url
 
   mount_uploader :avatar, AvatarUploader
 
@@ -18,6 +19,7 @@ class User < ActiveRecord::Base
                           :uniq => true, :before_add => :check_not_follow_myself
 
   has_many :tweets, :inverse_of => :user, :dependent => :destroy
+  has_many :authentications, :inverse_of => :user, :dependent => :delete_all
 
   #sets guest role for user (used in ability model)
   def guest!
@@ -27,6 +29,19 @@ class User < ActiveRecord::Base
 
   def guest?
     @is_guest
+  end
+
+  def apply_omniauth(auth)
+    ### temporary: setting fake email and password
+    self.email = auth['extra']['raw_info']['email'] || "blankemail@example.com"
+    self.password = "0000"
+    ###
+
+    self.repos_url = auth['extra']['raw_info']['repos_url']
+    self.avatar = auth['info']['image']
+    self.username = auth['info']['nickname']
+    self.name = auth['info']['name']
+    authentications.build(:provider => auth['provider'], :uid => auth['uid'], :token => auth['credentials']['token'])
   end
 
   private
