@@ -24,7 +24,7 @@
     <table id="repos_list"></table>
     <%= hidden_field_tag :user_repos_url, @user.repos_url %>
     <%= hidden_field_tag :clone_repo_url, clone_repo_path %>
-    <%= content_for :head, javascript_include_tag('pipeline/user/show') %>
+    <%= content_for :scripts, javascript_include_tag('pipeline/user/show') %>
 <% end %>
 
 <div class="form-actions">
@@ -34,4 +34,19 @@
       <%= render :template => "tweets/index" %>
     </div>
   </div>
+</div>
+
+
+<div id="editor">
+  # ruby code
+  def foo
+    if "asd" =~ /asdas/
+        p 'rr as fasdas #{ 1 + 2 }'
+    end
+  end
+  // js code
+  function getx(){
+    var x = 1;
+    return x;
+  }
 </div>

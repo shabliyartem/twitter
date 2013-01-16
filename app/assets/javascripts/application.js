@@ -13,4 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require_tree .
+// add line "//= require_tree ." to load all scripts in the scripts folder

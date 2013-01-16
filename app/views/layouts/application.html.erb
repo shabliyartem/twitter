@@ -13,7 +13,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= yield :head %>
+    <%= yield :head_script %>
 
   </head>
   <body>
@@ -90,6 +90,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
+    <%= yield :scripts %>
 
   </body>
 </html>
