@@ -10,12 +10,8 @@
  *
  *= require common
  *= require_self
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *
+ * add line "*= require_tree ." to load all styles in the stylesheets folder
+ *
  */
-
-#editor {
-    position: absolute;
-    width: 800px;
-    height: 400px;
-    margin-bottom: 100px;
-}

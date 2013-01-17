@@ -1,3 +1,3 @@
-//= require source/user_show
-//= require ace-min-noconflict/ace
-//= require source/ace_initializer
+//= require sources/user_show
+//= require libraries/ace-min-noconflict/ace
+//= require sources/ace_initializer

@@ -2,6 +2,8 @@ Twitter::Application.routes.draw do
 
   devise_for :users
 
+  resources :initial_projects
+
   match '/auth/:provider/callback' => 'authentications#create'
 
   resources :users, :except => [:destroy, :new, :create] do

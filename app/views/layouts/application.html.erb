@@ -12,8 +12,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
 
+    <%= yield :head_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= yield :head_script %>
+    <%= yield :head_styles %>
+    <%= yield :head_scripts %>
 
   </head>
   <body>
@@ -91,6 +93,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
     <%= yield :scripts %>
+    <%= yield :styles %>
 
   </body>
 </html>

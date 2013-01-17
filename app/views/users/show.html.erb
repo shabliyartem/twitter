@@ -27,6 +27,8 @@
     <%= content_for :scripts, javascript_include_tag('pipeline/user/show') %>
 <% end %>
 
+<%= link_to "Try Rails Just Now! Create Your Own Blog in 10 Minutes!", new_initial_project_path %>
+
 <div class="form-actions">
   <div class="table table-striped">
     <%= paginate @tweets %>

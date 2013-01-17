@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   end
 
   def clone_repo
-    path = File.join(Rails.root, "public/uploads/projects", current_user.username, params[:repo_name])
+    path = File.join(Rails.root, "public/uploads/user_projects/github_clones", current_user.username, params[:repo_name])
     `git clone #{params[:repo_url]} #{path}`
     @result = test_project(path)
   end
