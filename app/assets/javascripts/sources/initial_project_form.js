@@ -110,8 +110,6 @@ var ProjectProgress = function(){
                     },
                     error: function(e) {
                         terminal.resume();
-                        ProjectProgress.resume();
-                        ProjectProgress.nextStep();
                         terminal.error("Error while creating project: " + JSON.parse(e.responseText));
                     }
                 });

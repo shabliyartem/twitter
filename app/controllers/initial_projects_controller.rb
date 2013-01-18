@@ -42,12 +42,14 @@ class InitialProjectsController < ApplicationController
   def create
     @initial_project = current_user.initial_projects.build(:name => params[:initial_project_name])
     require "fileutils"
+    user_initial_projects_path = File.join(Rails.root, "public/uploads/user_projects", current_user.username, "initial_projects")
+    FileUtils.mkdir_p user_initial_projects_path
     FileUtils.cp_r File.join(Rails.root, "public/uploads/project_scaffolds", params[:initial_project_name]),
-                 File.join(Rails.root, "public/uploads/user_projects", current_user.username, "initial_projects") rescue coping_failed = true
+                    File.join(user_initial_projects_path, params[:initial_project_name]) rescue coping_failed = true
 
     respond_to do |format|
-      if true#!(coping_failed |= nil) && @initial_project.save
-      format.html { redirect_to @initial_project, notice: 'Initial project was successfully created.' }
+      if !(coping_failed |= nil) && @initial_project.save
+        format.html { redirect_to @initial_project, notice: 'Initial project was successfully created.' }
         format.json { render json: @initial_project }
       else
         format.html { render action: "new" }
