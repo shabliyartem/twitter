@@ -1,0 +1,10 @@
+<% require 'pathname' %>
+<ul class="jqueryFileTree" style="display: none;">
+  <% @files.each do |f| %>
+      <% if File.directory? f %>
+          <li class="directory collapsed"><a href="#" rel="<%= f %>"><%= Pathname.new(f).basename %></a></li>
+      <% else %>
+          <li class="file ext_txt"><a href="#" rel="<%= f %>"><%= Pathname.new(f).basename %></a></li>
+      <% end %>
+  <% end %>
+</ul>

@@ -22,6 +22,8 @@ var ProjectProgress = function(){
                     type: 'post',
                     data: { initial_project_name: $('#initial_project_name').val() },
                     success: function(data) {
+                        $('#initial_project_id').val(data.initial_project.id);
+                        $('#project_structure_path').val(data.project_path);
                         terminal.resume();
                         ProjectProgress.resume();
                         ProjectProgress.nextStep();
@@ -122,7 +124,9 @@ var ProjectProgress = function(){
             },
             responce: function(terminal, terminalProperties){
                 terminal.set_prompt(terminalProperties.prompt.replace('$', '/myblog$'));
-                terminal.disable();
+                ///////////////////////////
+                terminal.disable();    //// TERMPORARY ADDED!!!!  /////////////
+                ///////////////////////////
             }
         },
         {use: "terminal", command: "rails generate scaffold Post title:string content:text",
@@ -229,11 +233,14 @@ var ProjectProgress = function(){
                     keyboard: false
                     //,backdrop: false
                 });
+                ProjectEditor.openProject();
                 ProjectProgress.nextStep();
             }
         },
         {use: "editor",
             action: function(){
+                var editor = ace.edit("editor");
+                ProjectEditor.open('Gemfile');
                 showTip('#editor-window', "Edit your Gemfile. Add <b>gem 'twitter-bootstrap-rails'</b> to it");
             }
         }
@@ -246,15 +253,13 @@ var ProjectProgress = function(){
     }
 
     function showTip(selector, content, title) {
-        title = "TIPPP";
+        if(!title) title = ""; if(!content) content = "";
         $('.popover').remove();
         if($(selector).data().popover){
-            console.log('editing popover');
             $(selector).data().popover.options.title = (title || "");
             $(selector).data().popover.options.content = (content || "");
         }
         else{
-            console.log('creating popover');
             $(selector).popover({
                 title: title,
                 content: content,

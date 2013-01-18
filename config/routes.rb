@@ -2,7 +2,9 @@ Twitter::Application.routes.draw do
 
   devise_for :users
 
-  resources :initial_projects
+  resources :initial_projects do
+    post :project_structure
+  end
 
   match '/auth/:provider/callback' => 'authentications#create'
 

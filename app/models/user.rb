@@ -45,6 +45,14 @@ class User < ActiveRecord::Base
     authentications.build(:provider => auth['provider'], :uid => auth['uid'], :token => auth['credentials']['token'])
   end
 
+  def initial_projects_path
+    File.join(Rails.root, "public/uploads/user_projects", self.username, "initial_projects")
+  end
+
+  def github_clones_path
+    File.join(Rails.root, "public/uploads/user_projects", self.username, "github_clones")
+  end
+
   private
 
   #checks that user not subscribe on himself

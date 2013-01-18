@@ -27,7 +27,7 @@ class InitialProjectsController < ApplicationController
     @initial_project = InitialProject.new(:name => "myblog")
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @initial_project }
     end
   end
@@ -42,15 +42,17 @@ class InitialProjectsController < ApplicationController
   def create
     @initial_project = current_user.initial_projects.build(:name => params[:initial_project_name])
     require "fileutils"
-    user_initial_projects_path = File.join(Rails.root, "public/uploads/user_projects", current_user.username, "initial_projects")
-    FileUtils.mkdir_p user_initial_projects_path
-    FileUtils.cp_r File.join(Rails.root, "public/uploads/project_scaffolds", params[:initial_project_name]),
-                    File.join(user_initial_projects_path, params[:initial_project_name]) rescue coping_failed = true
+    FileUtils.mkdir_p current_user.initial_projects_path
+    FileUtils.cp_r File.join(InitialProject::SCAFFOLDS_FOLDER_PATH, params[:initial_project_name]),
+                      @initial_project.path rescue coping_failed = true
 
     respond_to do |format|
       if !(coping_failed |= nil) && @initial_project.save
         format.html { redirect_to @initial_project, notice: 'Initial project was successfully created.' }
-        format.json { render json: @initial_project }
+        format.json do
+          render json: { :initial_project => @initial_project,
+                          :project_path => initial_project_project_structure_path(@initial_project.id) }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @initial_project.errors.full_messages, status: :unprocessable_entity }
@@ -83,6 +85,17 @@ class InitialProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to initial_projects_url }
       format.json { head :no_content }
+    end
+  end
+
+  #TODO НЕ ЗАКІНЧИВ ЩЕ. ТРЕБА ХОВАТИ ФПЙЛОВУ СТРУКТУРУ
+  #TODO ПОКАЗУВАТИ структуру підпапок
+  def project_structure
+    initial_project = InitialProject.find(params[:initial_project_id])
+    path = (params[:dir] == '/' ? initial_project.path : params[:dir])
+    @files = Dir.glob("#{path}/*")
+    respond_to do |format|
+      format.html { render :layout => false }
     end
   end
 end
