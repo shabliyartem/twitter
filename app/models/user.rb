@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   has_many :tweets, :inverse_of => :user, :dependent => :destroy
   has_many :authentications, :inverse_of => :user, :dependent => :destroy
-  has_one :initial_project, :inverse_of => :user, :dependent => :destroy
+  has_many :initial_projects, :inverse_of => :user, :dependent => :destroy
 
   #sets guest role for user (used in ability model)
   def guest!

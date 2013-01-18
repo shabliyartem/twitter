@@ -1,36 +1,16 @@
 <%= content_for :scripts, javascript_include_tag("pipeline/initial_project/form") %>
 <%= content_for :head_styles, stylesheet_link_tag("pipeline/initial_project/form") %>
 
-<%= hidden_field_tag :username, current_user.username %>
-<div id="terminal"></div>
-
-<div id="tip">
-  <span id="tip-text"></span>
-  <div class="tip-arrow"></div>
+<div id="terminal-window" class="modal hide">
+  <div id="terminal"></div>
 </div>
 
-<%= form_for(@initial_project) do |f| %>
-  <% if @initial_project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@initial_project.errors.count, "error") %> prohibited this initial_project from being saved:</h2>
+<div id="editor-window" class="modal hide">
+  <div id="panel">Tollbar panel here</div>
+  <div id="project-structure">Project<br/>tree<br/>here</div>
+  <div id="editor"></div>
+</div>
 
-      <ul>
-      <% @initial_project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%= hidden_field_tag :username, current_user.username %>
+<%= hidden_field_tag :initial_projects_path, initial_projects_path %>
+<%= hidden_field_tag :initial_project_name, @initial_project.name %>

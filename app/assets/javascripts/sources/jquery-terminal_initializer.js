@@ -23,9 +23,9 @@ $(document).ready(function(){
                 term.echo('');
             }
         },
-        { greetings: 'RailsLearning.com',
+        { greetings: '[[b;#00C0E4;]Welcome to RailsLearning.com]',
             name: 'rails_project_terminal',
-            height: 200,
+            height: 500,
             prompt: terminalProperties.prompt
         }
     );

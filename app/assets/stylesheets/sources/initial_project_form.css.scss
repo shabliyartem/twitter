@@ -1,8 +1,26 @@
-#editor {
-  position: absolute;
-  width: 800px;
-  height: 400px;
-  margin-bottom: 100px;
+#editor-window{
+  width: 1015px;
+  height: 450px;
+
+  #panel{
+    width: auto;
+    height: 30px;
+    background-color: rgba(140, 155, 174, 0.43);
+    border: 1px solid #2f4f4f;
+  }
+
+  #project-structure{
+    float: left;
+    width: 200px;
+    height: 400px;
+    border: 1px solid #2f4f4f;
+  }
+
+  #editor {
+    position: relative;
+    width: 800px;
+    height: 400px;
+  }
 }
 
 #tip{
@@ -13,6 +31,7 @@
   padding: 10px;
   border-radius: 10px;
   display: none;
+  z-index: 100000;
 
   .tip-arrow{
     width: 50px;
