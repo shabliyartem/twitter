@@ -13,6 +13,7 @@
 
 <%= hidden_field_tag :username, current_user.username %>
 <%= hidden_field_tag :initial_projects_path, initial_projects_path %>
-<%= hidden_field_tag :project_structure_path, (initial_project_project_structure_path(@initial_project.id) if @initial_project.id.present?)  %>
+<%= hidden_field_tag :project_structure_path, project_structure_initial_projects_path %>
+<%= hidden_field_tag :file_content_path, file_content_initial_projects_path %>
 <%= hidden_field_tag :initial_project_name, @initial_project.name %>
 <%= hidden_field_tag :initial_project_id, @initial_project.id %>

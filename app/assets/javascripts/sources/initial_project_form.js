@@ -23,7 +23,6 @@ var ProjectProgress = function(){
                     data: { initial_project_name: $('#initial_project_name').val() },
                     success: function(data) {
                         $('#initial_project_id').val(data.initial_project.id);
-                        $('#project_structure_path').val(data.project_path);
                         terminal.resume();
                         ProjectProgress.resume();
                         ProjectProgress.nextStep();
@@ -239,8 +238,7 @@ var ProjectProgress = function(){
         },
         {use: "editor",
             action: function(){
-                var editor = ace.edit("editor");
-                ProjectEditor.open('Gemfile');
+                //ProjectEditor.open('Gemfile');
                 showTip('#editor-window', "Edit your Gemfile. Add <b>gem 'twitter-bootstrap-rails'</b> to it");
             }
         }

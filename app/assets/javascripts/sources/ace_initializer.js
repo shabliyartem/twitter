@@ -1,19 +1,36 @@
 var ProjectEditor = function(){
     var editorInstance;
+    var currentFile = null;
 
-    function ajax(){
+    function getFileContent(file){
         $.ajax({
-            url: $('#initial_projects_path').val(),
+            url: $('#file_content_path').val(),
             dataType: 'json',
-            type: 'post',
-            data: { initial_project_name: $('#initial_project_name').val() },
-            success: function(data, e1, e2) {
-                console.log('data: ' + data);
-                console.log('e1: ' + e1);
-                console.log('e2: ' + e2);
+            type: 'get',
+            data: {
+                file_path: file,
+                initial_project_id: $('#initial_project_id').val()
             },
-            error: function(e) {
-                console.log("Error while creating project: " + JSON.parse(e.responseText));
+            success: function(data) {
+                currentFile = file;
+                editorInstance.setValue(data, -1);
+            },
+            error: function(e){
+                currentFile = null;
+                editorInstance.setValue('');
+            }
+        });
+    }
+
+    function saveFile(file){
+        $.ajax({
+            url: $('#file_content_path').val(),
+            dataType: 'json',
+            type: 'put',
+            data: {
+                file_path: file,
+                file_content: editorInstance.getValue(),
+                initial_project_id: $('#initial_project_id').val()
             }
         });
     }
@@ -23,18 +40,22 @@ var ProjectEditor = function(){
             editorInstance = ace.edit(elementId);
             editorInstance.setTheme("ace/theme/monokai");
             editorInstance.getSession().setMode("ace/mode/ruby");
+            editorInstance.setShowPrintMargin(false);
         },
-        openProject: function(projPath){
+        openProject: function(){
             $('#project-structure').fileTree(
-                { script: $('#project_structure_path').val() },
+                {
+                    script: $('#project_structure_path').val() + "?initial_project_id=" + $('#initial_project_id').val(),
+                    folderEvent: "dblclick",
+                    expandSpeed: -1,
+                    collapseSpeed: -1
+                },
                 function(file) {
-                    //TODO треба отримувати вміст цього файлу
-                    editorInstance.setValue(file);
+                    if(currentFile != null)
+                        saveFile(currentFile);
+                    getFileContent(file);
                 }
             );
-        },
-        open: function(file){
-            editorInstance.setValue('def sdahfgidshfgsdfhn asd\n  a = asd;\n  asdfsdfsadfasdf(a); if true\nend');
         }
     }
 }();

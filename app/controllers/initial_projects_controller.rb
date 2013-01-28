@@ -50,8 +50,7 @@ class InitialProjectsController < ApplicationController
       if !(coping_failed |= nil) && @initial_project.save
         format.html { redirect_to @initial_project, notice: 'Initial project was successfully created.' }
         format.json do
-          render json: { :initial_project => @initial_project,
-                          :project_path => initial_project_project_structure_path(@initial_project.id) }
+          render json: { :initial_project => @initial_project }
         end
       else
         format.html { render action: "new" }
@@ -88,14 +87,45 @@ class InitialProjectsController < ApplicationController
     end
   end
 
-  #TODO НЕ ЗАКІНЧИВ ЩЕ. ТРЕБА ХОВАТИ ФПЙЛОВУ СТРУКТУРУ
-  #TODO ПОКАЗУВАТИ структуру підпапок
   def project_structure
     initial_project = InitialProject.find(params[:initial_project_id])
-    path = (params[:dir] == '/' ? initial_project.path : params[:dir])
-    @files = Dir.glob("#{path}/*")
+    root = initial_project.path
+    dir = params[:dir]
+    path = File.join root, dir
+    @files = Dir.glob File.join(path, "*")
+    @files = @files.collect do |f|
+      type = (File.directory?(f) ? 'directory' : 'file')
+      name = Pathname.new(f).basename.to_s
+      rel = f.gsub(root, '')
+      rel = rel + '/'  if type == 'directory'
+      ext = (type == 'file' ? File.extname(name)[1..-1] : nil)
+      {name: name, type: type, rel: rel, ext: ext}
+    end
+    @files.sort_by! { |a| a[:name] }
+    @files.sort_by! { |a| a[:type] }
+
     respond_to do |format|
       format.html { render :layout => false }
+    end
+  end
+
+  def file_content
+    initial_project = InitialProject.find(params[:initial_project_id])
+    file = File.join initial_project.path, params[:file_path]
+    content = File.read file
+
+    respond_to do |format|
+      format.json { render json: content.to_json }
+    end
+  end
+
+  def save_file_content
+    initial_project = InitialProject.find(params[:initial_project_id])
+    file = File.join initial_project.path, params[:file_path]
+    File.write file, params[:file_content]
+
+    respond_to do |format|
+      format.json { head :no_content }
     end
   end
 end
